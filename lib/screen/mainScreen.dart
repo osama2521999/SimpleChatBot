@@ -63,7 +63,7 @@ class MainScreen extends StatelessWidget {
 
                   Expanded(
                     child: Container(
-                      //color: Colors.orange,
+                      // color: Colors.orange,
                       child: SingleChildScrollView(
                         controller: controller.chatBoardScroller,
                         child: Column(
