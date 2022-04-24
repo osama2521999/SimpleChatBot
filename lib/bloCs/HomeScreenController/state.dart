@@ -1,9 +1,9 @@
-abstract class MainScreenState{}
+abstract class HomeScreenState{}
 
-class InitialState extends MainScreenState{}
+class InitialState extends HomeScreenState{}
 
-class UserTabState extends MainScreenState{}
+class UserTabState extends HomeScreenState{}
 
-class BotResponseState extends MainScreenState{}
+class BotResponseState extends HomeScreenState{}
 
-class ChangeModeState extends MainScreenState{}
+class ChangeModeState extends HomeScreenState{}

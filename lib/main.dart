@@ -1,5 +1,5 @@
 import 'package:bloc/bloc.dart';
-import 'package:chatbot/bloCs/mainController/cubit.dart';
+import 'package:chatbot/bloCs/MainController/cubit.dart';
 import 'package:chatbot/screen/homeScreen.dart';
 import 'package:chatbot/router/router.dart';
 import 'package:chatbot/screen/noInternet.dart';
@@ -33,7 +33,6 @@ class Test extends StatelessWidget {
     );
   }
 }
-
 
 
 class MyApp extends StatelessWidget {

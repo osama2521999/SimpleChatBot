@@ -1,6 +1,6 @@
 
 import 'package:chatbot/bloCs/HomeScreenController/state.dart';
-import 'package:chatbot/bloCs/mainController/cubit.dart';
+import 'package:chatbot/bloCs/MainController/cubit.dart';
 import 'package:chatbot/constant.dart';
 import 'package:dialogflow_flutter/language.dart';
 import 'package:flutter/cupertino.dart';
@@ -12,7 +12,7 @@ import 'package:dialogflow_flutter/dialogflowFlutter.dart';
 
 
 
-class HomeScreenController extends Cubit<MainScreenState>{
+class HomeScreenController extends Cubit<HomeScreenState>{
 
   HomeScreenController(this.context) : super(InitialState());
 

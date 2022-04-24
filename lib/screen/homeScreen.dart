@@ -17,7 +17,7 @@ class HomeScreen extends StatelessWidget {
 
     return BlocProvider(
       create: (context) => HomeScreenController(context),
-      child: BlocConsumer<HomeScreenController,MainScreenState>(
+      child: BlocConsumer<HomeScreenController,HomeScreenState>(
         listener: (context, state) {},
         builder: (context, state) {
 
