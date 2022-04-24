@@ -1,13 +1,13 @@
 // ignore_for_file: file_names
-import 'package:chatbot/bloCs/MainScreenController/cubit.dart';
-import 'package:chatbot/bloCs/MainScreenController/state.dart';
+import 'package:chatbot/bloCs/HomeScreenController/cubit.dart';
+import 'package:chatbot/bloCs/HomeScreenController/state.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../constant.dart';
 
-class MainScreen extends StatelessWidget {
-  const MainScreen({Key? key}) : super(key: key);
+class HomeScreen extends StatelessWidget {
+  const HomeScreen({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -15,33 +15,43 @@ class MainScreen extends StatelessWidget {
     double fontSize = (size.width)/25;
 
 
-    return Scaffold(
-      appBar: AppBar(
-        backgroundColor: Colors.transparent,
-        elevation: 0,
-        title: Center(child: Text("Main Screen",style: fixedTextStyle(font: 24,family: 'cairo')),),
-        flexibleSpace: Container(
-          decoration: const BoxDecoration(
-              gradient:  LinearGradient(
-                colors: [
-                  appThemColor,
-                  Colors.green,
-                ],
-                begin: Alignment.topLeft,
-                end: Alignment.bottomRight,
-              )
-          ),
-        ),
-      ),
+    return BlocProvider(
+      create: (context) => HomeScreenController(context),
+      child: BlocConsumer<HomeScreenController,MainScreenState>(
+        listener: (context, state) {},
+        builder: (context, state) {
 
-      body: BlocProvider(
-        create: (context) => MainScreenController(context),
-        child: BlocConsumer<MainScreenController,MainScreenState>(
-          listener: (context, state) {},
-          builder: (context, state) {
+          var controller = HomeScreenController.get(context);
 
-            var controller = MainScreenController.get(context);
-            return GestureDetector(
+          return Scaffold(
+            appBar: AppBar(
+              backgroundColor: Colors.transparent,
+              elevation: 0,
+              title: Center(child: Text("Home Screen",style: fixedTextStyle(font: 24,family: 'cairo')),),
+              flexibleSpace: Container(
+                decoration: const BoxDecoration(
+                    gradient:  LinearGradient(
+                      colors: [
+                        appThemColor,
+                        Colors.green,
+                      ],
+                      begin: Alignment.topLeft,
+                      end: Alignment.bottomRight,
+                    )
+                ),
+              ),
+              actions: [
+                IconButton(
+                  icon: modeIcon,
+                  onPressed: (){
+                    controller.convertMode();
+                  },
+                  iconSize: fontSize*1.5,
+                ),
+              ],
+            ),
+
+            body: GestureDetector(
               onTap: () => FocusScope.of(context).unfocus(),
               child: Column(
                 children:  [
@@ -62,8 +72,9 @@ class MainScreen extends StatelessWidget {
                   // ),
 
                   Expanded(
-                    child: Container(
-                      // color: Colors.orange,
+                    child: SizedBox(
+                      width: double.infinity,
+                      //color: Colors.orange,
                       child: SingleChildScrollView(
                         controller: controller.chatBoardScroller,
                         child: Column(
@@ -74,10 +85,11 @@ class MainScreen extends StatelessWidget {
                   ),
 
                   Container(
+                    // color: Colors.black38,
                     alignment: Alignment.bottomCenter,
                     child: Card(
                       shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(15.0),
+                        borderRadius: BorderRadius.circular(10.0),
                       ),
                       child: TextField(
                         controller: controller.messageSender,
@@ -94,12 +106,12 @@ class MainScreen extends StatelessWidget {
                   ),
                 ],
               ),
-            );
+            ),
 
-          },
-        ),
+          );
+
+        },
       ),
-
     );
   }
 }

@@ -2,7 +2,7 @@
 
 
 class RoutePaths {
-  static const mainScreen = 'MainScreen';
+  static const homeScreen = 'MainScreen';
 
 
 }

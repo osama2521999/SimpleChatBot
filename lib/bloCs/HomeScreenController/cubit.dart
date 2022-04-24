@@ -1,4 +1,6 @@
-import 'package:chatbot/bloCs/MainScreenController/state.dart';
+
+import 'package:chatbot/bloCs/HomeScreenController/state.dart';
+import 'package:chatbot/bloCs/mainController/cubit.dart';
 import 'package:chatbot/constant.dart';
 import 'package:dialogflow_flutter/language.dart';
 import 'package:flutter/cupertino.dart';
@@ -10,11 +12,11 @@ import 'package:dialogflow_flutter/dialogflowFlutter.dart';
 
 
 
-class MainScreenController extends Cubit<MainScreenState>{
+class HomeScreenController extends Cubit<MainScreenState>{
 
-  MainScreenController(this.context) : super(InitialState());
+  HomeScreenController(this.context) : super(InitialState());
 
-  static MainScreenController get(context) => BlocProvider.of(context);
+  static HomeScreenController get(context) => BlocProvider.of(context);
 
   var context;
 
@@ -26,50 +28,54 @@ class MainScreenController extends Cubit<MainScreenState>{
 
   void whenUserSend(Size size,double fontSize){
 
-    Widget userTap = Container(
-      alignment: Alignment.centerRight,
-      padding: const EdgeInsets.only(right: 10,top: 10),
-      child: Row(
-        textDirection: TextDirection.rtl,
-        children: [
-          Container(
-            margin: const EdgeInsets.only(bottom: 30),
-            width: (size.width)*.15,
-            height: (size.width)*.15,
-            child: ClipOval(child: Image.asset("assets/images/user.png")),
-            decoration: BoxDecoration(
-              borderRadius: BorderRadius.circular(100),
-            ),
-          ),
-          Expanded(
-            // //width: (size.width)-((size.width)*.15),
-            // width: 100,
-            child: Padding(
-              padding: const EdgeInsets.only(bottom: 30,right: 10),
-              child: Text(
-                messageSender.value.text,
-                style: fixedTextStyle(font: fontSize),
-                maxLines: 2,
-                overflow: TextOverflow.ellipsis,
-                textDirection: TextDirection.rtl,
+    if(messageSender.value.text.isNotEmpty){
+
+      Widget userTap = Container(
+        alignment: Alignment.centerRight,
+        padding: const EdgeInsets.only(right: 10,top: 10),
+        child: Row(
+          textDirection: TextDirection.rtl,
+          children: [
+            Container(
+              margin: const EdgeInsets.only(bottom: 30),
+              width: (size.width)*.15,
+              height: (size.width)*.15,
+              child: ClipOval(child: Image.asset("assets/images/user.png")),
+              decoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(100),
               ),
             ),
-          )
-        ],
-      ),
-    );
+            Expanded(
+              // //width: (size.width)-((size.width)*.15),
+              // width: 100,
+              child: Padding(
+                padding: const EdgeInsets.only(bottom: 30,right: 10),
+                child: Text(
+                  messageSender.value.text,
+                  style: fixedTextStyle(font: fontSize),
+                  maxLines: 2,
+                  overflow: TextOverflow.ellipsis,
+                  textDirection: TextDirection.rtl,
+                ),
+              ),
+            )
+          ],
+        ),
+      );
 
-    chatBoard.add(userTap);
+      chatBoard.add(userTap);
 
-    chatBoardScroller.jumpTo(chatBoardScroller.position.maxScrollExtent+100);
+      chatBoardScroller.jumpTo(chatBoardScroller.position.maxScrollExtent+100);
 
-    String userMessage = messageSender.value.text;
+      String userMessage = messageSender.value.text;
 
-    messageSender.clear();
+      messageSender.clear();
 
-    emit(UserTabState());
+      emit(UserTabState());
 
-    botResponse(size, fontSize, userMessage);
+      botResponse(size, fontSize, userMessage);
+
+    }
 
   }
 
@@ -126,6 +132,17 @@ class MainScreenController extends Cubit<MainScreenState>{
     chatBoardScroller.jumpTo(chatBoardScroller.position.maxScrollExtent+100);
 
     emit(BotResponseState());
+
+  }
+
+
+  void convertMode(){
+
+    var controller = MainController.get(context);
+
+    controller.convertMode();
+
+    emit(ChangeModeState());
 
   }
 

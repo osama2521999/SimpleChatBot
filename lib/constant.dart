@@ -6,6 +6,13 @@ const MaterialColor color=Colors.lightGreen;
 
 const Color appThemColor=color;
 
+String modeType = "light";
+
+Icon modeIcon = const Icon(Icons.light_mode_outlined);
+
+
+
+
 
 double constFieldWidth(BuildContext context,double scale){
 
